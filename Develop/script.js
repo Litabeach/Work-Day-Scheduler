@@ -27,7 +27,7 @@ function addRows() {
         const timeDiv = $("<div class='col-lg-2 hour'/>").text(time) 
         // this will be used to save events that the user inputs to local storage
         const event = getEvent(time)  
-        const inputDiv =$("<div class='col-lg-8'><textarea></textarea></div>")  //add " + event + " in textarea?
+        const inputDiv =$("<div class='col-lg-8'><textarea class = 'col-lg-12'></textarea></div>")  //add " + event + " in textarea?
         const saveDiv = $("<div class='col-lg-2'><button class='saveBtn'>Save Button</div>")
         // appending the rows to each other then the schedule div so they appear on the page.
         row.append(timeDiv)
@@ -53,9 +53,17 @@ $(document).ready(function() { addRows() })
 // moment.js
 var currentDayDiv = $("#currentDay")
 var curentDay = $("<div>");
-    currentDay = moment.js()
+    currentDay = moment().format("dddd, MMMM Do YYYY");
     currentDayDiv.text("Todays date is " + currentDay);
-    currentDayDiv.append(currentDay);
+
+
+
+// moment.js for current hour
+var currentHour = moment().format("H")
+
+
+
+
 
 
 
