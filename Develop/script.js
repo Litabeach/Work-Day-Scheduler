@@ -16,6 +16,11 @@ var curentHour = $("<div>");
 console.log(currentHour)
 
 // array of times
+// var timeBlocks = localStorage.get("events")
+//     if (!timeBlocks) {
+//         timeblocks = createEmptyTimeBlocks()
+//     }
+
 
 var timeBlocks = [   //array of objects
     {
@@ -83,31 +88,35 @@ function addRows() {
         row.append(saveDiv)
         schedule.append(row)
 
+        // closure
         const hour = timeBlock.dataHour
         // on click event that saves the input in the inputDiv textarea to local storage when save button is pressed.
         saveDiv.click(function () {
-            
-            timeBlock.event = inputDiv.children("textarea").val()
-            localStorage.setItem("events", JSON.stringify(timeBlocks))
+            for (timeBlockToSave of timeBlocks) {
+                if (timeBlockToSave.dataHour === hour) {
+                  timeBlockToSave.event = inputDiv.children("textarea").val()
+                  localStorage.setItem("events", JSON.stringify(timeBlocks))
+                }
+              }
         })
     }
 }
 
-function getEvent(time) {
+function getEvent() {
     localStorage.getItem("events")
 }  //get event out of local storage and return event for time. handle case where there is no event
 
 function checkTimeColor() {
     const inputDiv = $("<div class='col-lg-10'><textarea class = 'col-lg-12'></textarea></div>")
-    if (currentHour === dataHour) {
+    if (currentHour === timeBlock.dataHour) {
         $(inputDiv).attr("class", "present")
     }
 
-    if (currentHour > dataHour) {
+    if (currentHour > timeBlock.dataHour) {
         $(inputDiv).attr("class", "past")
     }
 
-    if (currentHour < dataHour) {
+    if (currentHour < timeBlock.dataHour) {
         $(inputDiv).attr("class", "future")
     }
 
@@ -119,6 +128,7 @@ function checkTimeColor() {
 // (document).ready(function() {} calls the function when the page loads
 $(document).ready(function () { addRows() })
 $(document).ready(function () { checkTimeColor() })
+$(document).ready(function () { getEvent() })
 
 
 
