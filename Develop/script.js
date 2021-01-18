@@ -1,16 +1,10 @@
-// utilize moment.js, this and then(?)
-// write an event listener that when 'save' button is clicked, takes info from text area and saves it to local storage
-// use sibling to get to the text area?
-// need to include todays date and time
-// write a function that changes the color of the timeblock according to the current 
-
 // moment.js current day
 var currentDayDiv = $("#currentDay")
 var curentDay = $("<div>");
-currentDay = moment().format("dddd, MMMM Do YYYY");
-currentDayDiv.text("Today's date is " + currentDay);
+currentDay = moment().format("dddd, MMMM Do");
+currentDayDiv.text(currentDay);
 
-// moment.js for current hour
+// moment.js current hour
 var currentHour = moment().format("H")
 var curentHour = $("<div>");
 console.log(currentHour)
@@ -19,12 +13,6 @@ console.log(currentHour)
 //     if (!timeBlocks) {
 //         timeblocks = createEmptyTimeBlocks()
 //     }
-
-// get events data. How to populate it to page? Push this into timeBlocks.event?
-var getEvent = JSON.parse(localStorage.getItem("events")) || [];
-function getEvent() {
-    JSON.parse(localStorage.getItem("events"))
-}  //get event out of local storage and return event for time. handle case where there is no event
 
 var timeBlocks = [   //array of objects
     {
@@ -76,29 +64,27 @@ var timeBlocks = [   //array of objects
 
 // this function paints the rows on the page
 function addRows() {
-    // select the schedule div from html
+    // select the schedule div from html, set it to variable schedule
     var schedule = $("#schedule")
-    // another way of writing a for loop for the times array. 
-    for (timeBlock of timeBlocks) {   //use for each to get both variables???
+    // another way of writing a for loop for the timeBlocks array. 
+    for (timeBlock of timeBlocks) {
         // For each object in the array timeBlocks, a new row that includes time, place to input events, and save button is created.
         var row = $("<div class='row'/>")
         var timeDiv = $("<div class='col-1 hour'/>").text(timeBlock.hour)
         var inputDiv = $("<div'><textarea class = 'col-12'>" + timeBlock.event + "</textarea></div>")
+        var saveDiv = $("<div class='col-1'><button class='col-1saveBtn saveBtn i:hover '>Save Button</div>")
 
         // change the color of the inputDiv according to the dataHour vs. currentHour
         if (currentHour == timeBlock.dataHour) {
             $(inputDiv).attr("class", "present col-10")
         }
-
         if (currentHour > timeBlock.dataHour) {
             $(inputDiv).attr("class", "past col-10")
         }
-
         if (currentHour < timeBlock.dataHour) {
             $(inputDiv).attr("class", "future col-10")
         }
 
-        var saveDiv = $("<div class='col-1'><button class='saveBtn'>Save Button</div>")
         // appending the rows to each other then the schedule div so they appear on the page.
         row.append(timeDiv)
         row.append(inputDiv)
@@ -115,13 +101,21 @@ function addRows() {
                 if (timeBlockToSave.dataHour === hour) {
                     timeBlockToSave.event = inputDiv.children("textarea").val()
                     localStorage.setItem("events", JSON.stringify(timeBlocks))
+
+            //  originally had this:
+            //   timeBlock.event = inputDiv.children("textarea").val()
+            // localStorage.setItem("events", JSON.stringify(timeBlocks))
                 }
             }
         })
     }
 }
 
-
+// get events data. How to populate it to page? Push this into timeBlocks.event?
+function getEvent() {
+    var getEvent = JSON.parse(localStorage.getItem("events")) || "";
+}  //get event out of local storage and return event for time. handle case where there is no event
+getEvent();
 
 // function checkTimeColor() {
 
@@ -140,13 +134,10 @@ function addRows() {
 // }
 
 
-
-
 // (document).ready(function() {} calls the function when the page loads
 $(document).ready(function () { addRows() });
 // $(document).ready(function () { checkTimeColor() });
 // $(document).ready(function () { getEvent() })
-getEvent();
 
 
 
