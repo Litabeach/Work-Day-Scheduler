@@ -11,72 +11,106 @@ currentDay = moment().format("dddd, MMMM Do YYYY");
 currentDayDiv.text("Today's date is " + currentDay);
 
 // moment.js for current hour
-var currentHour = moment().format("hA")
+var currentHour = moment().format("H")
 var curentHour = $("<div>");
 console.log(currentHour)
 
 // array of times
-const times = ["9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm"]
-const dataHour = ["9", "10", "11", "12", "13", "14", "15", "16", "17"]
+
+var timeBlocks = [   //array of objects
+    {
+        dataHour: 9,
+        hour: "9:00am",
+        event: ""
+    },
+    {
+        dataHour: 10,
+        hour: "10:00am",
+        event: ""
+    },
+    {
+        dataHour: 11,
+        hour: "11:00am",
+        event: ""
+    },
+    {
+        dataHour: 12,
+        hour: "12:00pm",
+        event: ""
+    },
+    {
+        dataHour: 13,
+        hour: "1:00pm",
+        event: ""
+    },
+    {
+        dataHour: 14,
+        hour: "2:00pm",
+        event: ""
+    },
+    {
+        dataHour: 15,
+        hour: "3:00pm",
+        event: ""
+    },
+    {
+        dataHour: 16,
+        hour: "4:00pm",
+        event: ""
+    },
+    {
+        dataHour: 17,
+        hour: "5:00pm",
+        event: ""
+    },
+]
 
 // this function paints the rows on the page
 function addRows() {
     // select the schedule div from html
     const schedule = $("#schedule")
     // another way of writing a for loop for the times array. 
-    for (time of times) {
+    for (timeBlock of timeBlocks) {   //use for each to get both variables???
         // For each hour block in the array, a new row that includes time, place to input events, and save button is created.
         const row = $("<div class='row'/>")
-        const timeDiv = $("<div class='col-lg-1 hour'/>").text(time)
+        const timeDiv = $("<div class='col-lg-1 hour'/>").text(timeBlock.hour)
         // this will be used to save events that the user inputs to local storage
-        const event = getEvent(time)
-        const inputDiv = $("<div class='col-lg-10'><textarea class = 'col-lg-12'></textarea></div>")  //add " + event + " in textarea?
-        // inputDiv.data('data-hour',dataHour[i]);
-        // inputDiv.attr('data-hour',dataHour[i]);
+        const inputDiv = $("<div class='col-lg-10'><textarea class = 'col-lg-12'>" + timeBlock.event +"</textarea></div>")  
         const saveDiv = $("<div class='col-lg-1'><button class='saveBtn'>Save Button</div>")
         // appending the rows to each other then the schedule div so they appear on the page.
         row.append(timeDiv)
         row.append(inputDiv)
         row.append(saveDiv)
         schedule.append(row)
-        
 
+        const hour = timeBlock.dataHour
         // on click event that saves the input in the inputDiv textarea to local storage when save button is pressed.
         saveDiv.click(function () {
-            localStorage.setItem("events", inputDiv.children("textarea").val())
-
+            
+            timeBlock.event = inputDiv.children("textarea").val()
+            localStorage.setItem("events", JSON.stringify(timeBlocks))
         })
     }
 }
+
 function getEvent(time) {
     localStorage.getItem("events")
- }  //get event out of local storage and return event for time. handle case where there is no event
-
-function saveEvent(time, event) { 
-        events.push({
-          time: time,
-          entry: event.value
-        })
-      
-        localStorage.setItem('event', JSON.stringify(events))
-} //save event for the time in local storage
-
-
+}  //get event out of local storage and return event for time. handle case where there is no event
 
 function checkTimeColor() {
     const inputDiv = $("<div class='col-lg-10'><textarea class = 'col-lg-12'></textarea></div>")
-        if (currentHour === time) {
-            $(inputDiv).attr("class", "present")
-        }
+    if (currentHour === dataHour) {
+        $(inputDiv).attr("class", "present")
+    }
 
-        if (currentHour > time) {
-            $(inputDiv).attr("class", "past")
-        }
+    if (currentHour > dataHour) {
+        $(inputDiv).attr("class", "past")
+    }
 
-        if (currentHour < time) {
-            $(inputDiv).attr("class", "future")
-        }
-    
+    if (currentHour < dataHour) {
+        $(inputDiv).attr("class", "future")
+    }
+
 }
 
 
