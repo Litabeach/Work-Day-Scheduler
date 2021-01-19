@@ -99,11 +99,11 @@ function addRows() {
         saveDiv.click(function () {
             for (timeBlockToSave of timeBlocks) {
                 if (timeBlockToSave.dataHour === hour) {
-                    timeBlockToSave.event = inputDiv.children("textarea").val()
+                    timeBlockToSave.event = inputDiv("textarea").val()
                     localStorage.setItem("events", JSON.stringify(timeBlocks))
 
-            //  originally had this:
-            //   timeBlock.event = inputDiv.children("textarea").val()
+            //  originally had just this:
+            // timeBlock.event = inputDiv.children("textarea").val()
             // localStorage.setItem("events", JSON.stringify(timeBlocks))
                 }
             }
