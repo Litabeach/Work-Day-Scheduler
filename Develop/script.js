@@ -8,11 +8,6 @@ currentDayDiv.text(currentDay);
 var currentHour = moment().format("H")
 var curentHour = $("<div>");
 
-// var timeBlocks = localStorage.getItem("events")
-//     if (!timeBlocks) {
-//         timeblocks = createEmptyTimeBlocks()
-//     }
-
 var timeBlocks = JSON.parse(localStorage.getItem("events")) ||
     [   //array of objects
         {
@@ -68,10 +63,10 @@ function addRows() {
     var schedule = $("#schedule")
     // another way of writing a for loop for the timeBlocks array. 
     for (timeBlock of timeBlocks) {
-        // For each object in the array timeBlocks, a new row that includes time, place to input events, and save button is created.
+        // For each object in the array timeBlocks, add a new row that includes time, textbox to input events, and save button is created.
         var row = $("<div class='row'/>")
         var timeDiv = $("<div class='col-1 hour'/>").text(timeBlock.hour)
-        var inputDiv = $("<textarea class = 'col-12'>" + timeBlock.event + "</textarea>")
+        var inputDiv = $("<textarea class='col-12'>" + timeBlock.event + "</textarea>")
         var saveDiv = $("<button class='col-1 saveBtn'><i class='fas fa-save'></i>")
 
         // change the color of the inputDiv according to the dataHour vs. currentHour
@@ -91,9 +86,6 @@ function addRows() {
         row.append(saveDiv)
         schedule.append(row)
 
-
-
-
         // on click event that saves the input in the inputDiv textarea to local storage when save button is pressed.
         saveDiv.click(function () {
             for (var i = 0; i < timeBlocks.length; i++) {
@@ -107,12 +99,7 @@ function addRows() {
     }
 }
 
-// get events data. How to populate it to page? Push this into timeBlocks.event? handle case where there is no event?
-// function getEvent() {
-//     var getEvent = JSON.parse(localStorage.getItem("events")) || timeBlocks;
-// }
-// getEvent();
-
+// $(document).ready(function () makes the function available when the page loads.
 $(document).ready(function () { addRows() });
 
 
