@@ -19,7 +19,7 @@ Published at: https://litabeach.github.io/Work-Day-Scheduler/
 
 Click on the time blocks to enter notes about your daily schedule. Hit the 'save' button to save the data to local storage.
 
-![Screenshot of scheduler](Images/Screenshot.jpg)
+![Screenshot of schedule](Assets/screenshot.png)
 
 
 ## Credits
@@ -47,3 +47,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ![Built with Bootstrap badge](https://img.shields.io/badge/Built_with-Bootstrap-red)
 ![MIT license badge](https://img.shields.io/badge/License-MIT-blue)
 ![Built with Moment.js badge](https://img.shields.io/badge/Built_with-Moment.js-yellow)
+![Built with Font Awesome badge](https://img.shields.io/badge/Built_with-Font_Awesome-purple)

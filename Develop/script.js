@@ -8,7 +8,7 @@ currentDayDiv.text(currentDay);
 var currentHour = moment().format("H")
 var curentHour = $("<div>");
 
-// var timeBlocks = localStorage.get("events")
+// var timeBlocks = localStorage.getItem("events")
 //     if (!timeBlocks) {
 //         timeblocks = createEmptyTimeBlocks()
 //     }
@@ -96,16 +96,11 @@ function addRows() {
 
         // on click event that saves the input in the inputDiv textarea to local storage when save button is pressed.
         saveDiv.click(function () {
-            console.log($(this).siblings(".hour").text());
             for (var i = 0; i < timeBlocks.length; i++) {
                 if (timeBlocks[i].hour === $(this).siblings(".hour").text()) {
-                    console.log($(this).siblings(".col-10").children("textarea").val())
-                    timeBlocks[i].event = $(this).siblings(".col-10").children("textarea").val()
+                    timeBlocks[i].event = $(this).siblings(".col-10").val()
                     localStorage.setItem("events", JSON.stringify(timeBlocks))
 
-                    //  originally had just this:
-                    // timeBlock.event = inputDiv.children("textarea").val()
-                    // localStorage.setItem("events", JSON.stringify(timeBlocks))
                 }
             }
         })
@@ -119,16 +114,6 @@ function addRows() {
 // getEvent();
 
 $(document).ready(function () { addRows() });
-
-
-
-
-
-
-
-
-
-
 
 
 
