@@ -43,6 +43,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Badges
 
 ![Built with Javascript badge](https://img.shields.io/badge/Built_with-Javascript-green)
-![JQUERY badge](https://img.shields.io/badge/jQuery-orange)
-![Bootstrap badge](https://img.shields.io/badge/Bootstrap-orange)
+![Built with JQUERY badge](https://img.shields.io/badge/Built_with-jQuery-orange)
+![Built with Bootstrap badge](https://img.shields.io/badge/Built_with-Bootstrap-red)
 ![MIT license badge](https://img.shields.io/badge/License-MIT-blue)
+![Built with Moment.js badge](https://img.shields.io/badge/Built_with-Moment.js-yellow)

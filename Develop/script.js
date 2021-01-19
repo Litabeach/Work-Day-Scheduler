@@ -7,60 +7,60 @@ currentDayDiv.text(currentDay);
 // moment.js current hour
 var currentHour = moment().format("H")
 var curentHour = $("<div>");
-console.log(currentHour)
 
 // var timeBlocks = localStorage.get("events")
 //     if (!timeBlocks) {
 //         timeblocks = createEmptyTimeBlocks()
 //     }
 
-var timeBlocks = [   //array of objects
-    {
-        dataHour: 9,
-        hour: "9:00am",
-        event: ""
-    },
-    {
-        dataHour: 10,
-        hour: "10:00am",
-        event: ""
-    },
-    {
-        dataHour: 11,
-        hour: "11:00am",
-        event: ""
-    },
-    {
-        dataHour: 12,
-        hour: "12:00pm",
-        event: ""
-    },
-    {
-        dataHour: 13,
-        hour: "1:00pm",
-        event: ""
-    },
-    {
-        dataHour: 14,
-        hour: "2:00pm",
-        event: ""
-    },
-    {
-        dataHour: 15,
-        hour: "3:00pm",
-        event: ""
-    },
-    {
-        dataHour: 16,
-        hour: "4:00pm",
-        event: ""
-    },
-    {
-        dataHour: 17,
-        hour: "5:00pm",
-        event: ""
-    },
-]
+var timeBlocks = JSON.parse(localStorage.getItem("events")) ||
+    [   //array of objects
+        {
+            dataHour: 9,
+            hour: "9:00am",
+            event: ""
+        },
+        {
+            dataHour: 10,
+            hour: "10:00am",
+            event: ""
+        },
+        {
+            dataHour: 11,
+            hour: "11:00am",
+            event: ""
+        },
+        {
+            dataHour: 12,
+            hour: "12:00pm",
+            event: ""
+        },
+        {
+            dataHour: 13,
+            hour: "1:00pm",
+            event: ""
+        },
+        {
+            dataHour: 14,
+            hour: "2:00pm",
+            event: ""
+        },
+        {
+            dataHour: 15,
+            hour: "3:00pm",
+            event: ""
+        },
+        {
+            dataHour: 16,
+            hour: "4:00pm",
+            event: ""
+        },
+        {
+            dataHour: 17,
+            hour: "5:00pm",
+            event: ""
+        },
+    ]
 
 // this function paints the rows on the page
 function addRows() {
@@ -71,8 +71,8 @@ function addRows() {
         // For each object in the array timeBlocks, a new row that includes time, place to input events, and save button is created.
         var row = $("<div class='row'/>")
         var timeDiv = $("<div class='col-1 hour'/>").text(timeBlock.hour)
-        var inputDiv = $("<div'><textarea class = 'col-12'>" + timeBlock.event + "</textarea></div>")
-        var saveDiv = $("<div class='col-1'><button class='col-1saveBtn saveBtn i:hover '>Save Button</div>")
+        var inputDiv = $("<textarea class = 'col-12'>" + timeBlock.event + "</textarea>")
+        var saveDiv = $("<button class='col-1 saveBtn'><i class='fas fa-save'></i>")
 
         // change the color of the inputDiv according to the dataHour vs. currentHour
         if (currentHour == timeBlock.dataHour) {
@@ -92,52 +92,34 @@ function addRows() {
         schedule.append(row)
 
 
-        // closure
-        var hour = timeBlock.dataHour
+
 
         // on click event that saves the input in the inputDiv textarea to local storage when save button is pressed.
         saveDiv.click(function () {
-            for (timeBlockToSave of timeBlocks) {
-                if (timeBlockToSave.dataHour === hour) {
-                    timeBlockToSave.event = inputDiv("textarea").val()
+            console.log($(this).siblings(".hour").text());
+            for (var i = 0; i < timeBlocks.length; i++) {
+                if (timeBlocks[i].hour === $(this).siblings(".hour").text()) {
+                    console.log($(this).siblings(".col-10").children("textarea").val())
+                    timeBlocks[i].event = $(this).siblings(".col-10").children("textarea").val()
                     localStorage.setItem("events", JSON.stringify(timeBlocks))
 
-            //  originally had just this:
-            // timeBlock.event = inputDiv.children("textarea").val()
-            // localStorage.setItem("events", JSON.stringify(timeBlocks))
+                    //  originally had just this:
+                    // timeBlock.event = inputDiv.children("textarea").val()
+                    // localStorage.setItem("events", JSON.stringify(timeBlocks))
                 }
             }
         })
     }
 }
 
-// get events data. How to populate it to page? Push this into timeBlocks.event?
-function getEvent() {
-    var getEvent = JSON.parse(localStorage.getItem("events")) || "";
-}  //get event out of local storage and return event for time. handle case where there is no event
-getEvent();
-
-// function checkTimeColor() {
-
-//     if (currentHour === timeBlock.dataHour) {
-//         $(inputDiv).attr("class", "present")
-//     }
-
-//     if (currentHour > timeBlock.dataHour) {
-//         $(inputDiv).attr("class", "past")
-//     }
-
-//     if (currentHour < timeBlock.dataHour) {
-//         $(inputDiv).attr("class", "future")
-//     }
-
+// get events data. How to populate it to page? Push this into timeBlocks.event? handle case where there is no event?
+// function getEvent() {
+//     var getEvent = JSON.parse(localStorage.getItem("events")) || timeBlocks;
 // }
+// getEvent();
 
-
-// (document).ready(function() {} calls the function when the page loads
 $(document).ready(function () { addRows() });
-// $(document).ready(function () { checkTimeColor() });
-// $(document).ready(function () { getEvent() })
+
 
 
 
