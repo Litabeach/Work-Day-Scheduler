@@ -1,7 +1,5 @@
 # Work-Day-Scheduler
 
-https://litabeach.github.io/Work-Day-Scheduler/
-
 ## Description 
 
 A daily scheduler. Today's date and hour blocks from 9-5 are presented. The user can enter data into each hour block to document their schedule for the day.
